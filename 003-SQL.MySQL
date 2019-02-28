@@ -1,0 +1,53 @@
+CREATE DATABASE ESTACIO;
+DROP DATABASE ESTACIO;
+
+CREATE TABLE tb_cargo(
+id_cargo integer,
+ds_cargo varchar(40) NOT NULL,
+valor numeric(15,2) NOT NULL,
+fg_ativo integer,
+PRIMARY KEY (id_cargo));
+
+use ESTACIO;
+
+CREATE TABLE tb_escolaridade
+(id_escolaridade integer,
+ds_escolaridade varchar(40) NOT NULL,
+fg_ativo integer,
+PRIMARY KEY (id_escolaridade));
+
+CREATE TABLE tb_funcionario
+(id_funcionario INTEGER,
+nome VARCHAR(40),
+cpf VARCHAR(15),
+rg VARCHAR(15),
+dt_adm TIMESTAMP,
+id_gerente INTEGER,
+id_cargo INTEGER,
+id_escolaridade INTEGER
+,fg_ativo INTEGER,
+PRIMARY KEY (id_funcionario),
+FOREIGN KEY (id_gerente) REFERENCES tb_funcionario (id_funcionario),
+FOREIGN KEY (id_cargo) REFERENCES tb_cargo (id_cargo),
+FOREIGN KEY (id_escolaridade) REFERENCES tb_escolaridade (id_escolaridade));
+
+CREATE TABLE tb_dependente(
+id_dependente INTEGER,
+id_funcionario INTEGER,
+nome VARCHAR(40) NOT NULL,
+dt_nascimento TIMESTAMP NOT NULL,
+descricao VARCHAR(40) NOT NULL,
+fg_ativo INTEGER,
+PRIMARY KEY (id_dependente),
+FOREIGN KEY (id_funcionario) REFERENCES tb_funcionario (id_funcionario));
+
+CREATE TABLE tb_telefone(
+id_telefone INTEGER,
+id_funcionario INTEGER NOT NULL,
+tipo CHAR(1) NOT NULL,
+ddd VARCHAR(3) NOT NULL,
+telefone VARCHAR(10) NOT NULL,
+obs VARCHAR(40),
+fg_ativo INTEGER,
+PRIMARY KEY (id_telefone),
+FOREIGN KEY (id_funcionario) REFERENCES tb_funcionario (id_funcionario));
