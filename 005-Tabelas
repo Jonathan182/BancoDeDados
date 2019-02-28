@@ -1,0 +1,72 @@
+CREATE DATABASE ESTACIO;
+DROP DATABASE ESTACIO;
+use ESTACIO;
+
+SELECT*
+FROM tb_cargo;
+
+SELECT*
+FROM tb_funcionario;
+
+CREATE TABLE tb_cargo(
+id_cargo integer,
+ds_cargo varchar(40) NOT NULL,
+valor numeric(15,2) NOT NULL,
+fg_ativo integer,
+PRIMARY KEY (id_cargo));
+
+CREATE TABLE tb_funcionario
+(id_funcionario INTEGER,
+nome VARCHAR(40),
+cpf VARCHAR(15),
+rg VARCHAR(15),
+dt_adm TIMESTAMP,
+id_gerente INTEGER,
+id_cargo INTEGER,
+id_escolaridade INTEGER,
+fg_ativo INTEGER,
+PRIMARY KEY (id_funcionario),
+FOREIGN KEY (id_gerente) REFERENCES tb_funcionario (id_funcionario),
+FOREIGN KEY (id_cargo) REFERENCES tb_cargo (id_cargo),
+FOREIGN KEY (id_escolaridade) REFERENCES tb_escolaridade (id_escolaridade));
+
+CREATE TABLE tb_escolaridade
+(id_escolaridade integer,
+ds_escolaridade varchar(40) NOT NULL,
+fg_ativo integer,
+PRIMARY KEY (id_escolaridade));
+
+-- Apagar uma tabela específica
+DROP TABLE tb_cargo;
+DROP TABLE tb_funcionario;
+
+-- Adicionar um novo atributo a tabela
+ALTER TABLE tb_cargo ADD(        
+funcao varchar(40));
+
+-- Apagar um atributo da tabela
+ALTER TABLE tb_cargo DROP funcao;
+
+-- Modifica um atributo da tabela
+ALTER TABLE tb_cargo MODIFY
+ds_cargo varchar(60);
+
+INSERT INTO tb_cargo
+(id_cargo, ds_cargo, valor, fg_ativo)
+VALUES
+(1, 'Analista de Sistema', 42000.00,1),
+(2, 'Administrador de BD', 7900.00,1),
+(3, 'Desenvolvedor C#', 5740.00,1);
+
+INSERT INTO tb_funcionario
+(nome, cpf, rg, dt_adm, id_gerente,
+ id_cargo, id_escolaridade, fg_ativo)
+VALUES
+('Joao', 89753, 7894, '2002-05-31', 1),
+('ana', 45357, 2346, '2002-04-31', 1),
+('maria', 492765, 4892, '2002-03-31', 1);
+
+
+UPDATE tb_funcionario SET
+nome = 'João Roberto Junqueira'
+WHERE id_funcionario = 1;
