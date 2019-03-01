@@ -1,9 +1,9 @@
-CREATE DATABASE vendendor;
+CREATE DATABASE vendedor;
 
 SELECT*
-FROM vendendor;
+FROM vendedor;
 
-CREATE TABLE vendendor(
+CREATE TABLE vendedor(
 matricula int,
 nome varchar(30) NOT NULL,
 endereco varchar(60) NOT NULL,
@@ -12,9 +12,9 @@ comisao int,
 data_adm timestamp,
 PRIMARY KEY (matricula));
 
-drop table vendendor;
+drop table vendedor;
 
-insert into vendendor
+insert into vendedor
 (matricula, nome, endereco, salario, comisao, data_adm)
 value
 (132, 'joao', 'rua A', 1600, 2, '2002-03-02'),
@@ -23,7 +23,7 @@ value
 
 SET SQL_SAFE_UPDATES=0;
 
-update vendendor
+update vendedor
 SET comisao = 23
 where salario > 1500;
 
