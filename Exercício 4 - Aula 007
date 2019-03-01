@@ -1,0 +1,30 @@
+CREATE DATABASE vendendor;
+
+SELECT*
+FROM vendendor;
+
+CREATE TABLE vendendor(
+matricula int,
+nome varchar(30) NOT NULL,
+endereco varchar(60) NOT NULL,
+salario int,
+comisao int,
+data_adm timestamp,
+PRIMARY KEY (matricula));
+
+drop table vendendor;
+
+insert into vendendor
+(matricula, nome, endereco, salario, comisao, data_adm)
+value
+(132, 'joao', 'rua A', 1600, 2, '2002-03-02'),
+(221, 'maria', 'rua B', 1400, 2, '2002-02-01'),
+(231, 'alex', 'rua C', 1800, 2, '2002-01-01');
+
+SET SQL_SAFE_UPDATES=0;
+
+update vendendor
+SET comisao = 23
+where salario > 1500;
+
+SET SQL_SAFE_UPDATES=1;
