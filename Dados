@@ -1,0 +1,176 @@
+CREATE DATABASE ESTACIO;
+DROP DATABASE ESTACIO;
+use ESTACIO;
+
+SELECT*
+FROM tb_cargo;
+
+SELECT*
+FROM tb_funcionario;
+
+SELECT*
+FROM tb_escolaridade;
+
+SELECT*
+FROM tb_telefone;
+
+SELECT*
+FROM tb_depedente;
+
+CREATE TABLE tb_cargo(
+id_cargo integer,
+ds_cargo varchar(40) NOT NULL,
+valor numeric(15,2) NOT NULL,
+fg_ativo integer,
+PRIMARY KEY (id_cargo));
+
+CREATE TABLE tb_escolaridade(
+id_escolaridade integer,
+ds_escolaridade varchar(40) NOT NULL,
+fg_ativo integer,
+PRIMARY KEY (id_escolaridade));
+
+CREATE TABLE tb_funcionario(
+id_funcionario INTEGER,
+nome VARCHAR(40),
+cpf VARCHAR(15),
+rg VARCHAR(15),
+dt_adm TIMESTAMP,
+id_gerente INTEGER,
+id_cargo INTEGER,
+id_escolaridade INTEGER,
+fg_ativo INTEGER,
+PRIMARY KEY (id_funcionario),
+FOREIGN KEY (id_gerente) REFERENCES tb_funcionario (id_funcionario),
+FOREIGN KEY (id_cargo) REFERENCES tb_cargo (id_cargo),
+FOREIGN KEY (id_escolaridade) REFERENCES tb_escolaridade (id_escolaridade));
+
+CREATE TABLE tb_dependente(
+id_dependente INTEGER,
+id_funcionario INTEGER,
+nome VARCHAR(40) NOT NULL,
+dt_nascimento TIMESTAMP NOT NULL,
+descricao VARCHAR(40) NOT NULL,
+fg_ativo INTEGER,
+PRIMARY KEY (id_dependente),
+FOREIGN KEY (id_funcionario) REFERENCES tb_funcionario (id_funcionario));
+
+CREATE TABLE tb_telefone(
+id_telefone INTEGER,
+id_funcionario INTEGER NOT NULL,
+tipo CHAR(1) NOT NULL,
+ddd VARCHAR(3) NOT NULL,
+telefone VARCHAR(10) NOT NULL,
+obs VARCHAR(40),
+fg_ativo INTEGER,
+PRIMARY KEY (id_telefone),
+FOREIGN KEY (id_funcionario) REFERENCES tb_funcionario (id_funcionario));
+
+-- Insere valores na tabela
+INSERT INTO tb_cargo
+(id_cargo, ds_cargo, valor, fg_ativo)
+VALUES
+(1, 'Analista de Sistema', 42000.00,1),
+(2, 'Administrador de BD', 7900.00,1),
+(3, 'Desenvolvedor C#', 5740.00,1);
+
+INSERT INTO tb_escolaridade
+(id_escolaridade, ds_escolaridade, fg_ativo)
+VALUES
+(1, 'Ensino Médio', 1),
+(2, 'Graduação', 1),
+(3, 'Pós-graduado', 1);
+
+INSERT INTO tb_funcionario
+(id_funcionario, nome, cpf, rg, dt_adm,
+ id_gerente, id_cargo, id_escolaridade, fg_ativo)
+ VALUES
+ (1, 'João Roberto da Silva', '12332145699', '122344344320', '2001-05-31', null, 1, 2, 1),
+ (2, 'Miguel dos Santos'    , '87612354677', '876523333'   , '2013-12-01', null, 1, 2, 1),
+ (3, 'Maria dos Santos'     , '34576512344', '765465230'   , '2004-02-28', null, 2, 2, 1);
+
+INSERT INTO tb_dependente
+(id_dependente, id_funcionario,
+ nome, dt_nascimento, descricao, fg_ativo)
+ VALUES
+ (1, 1, 'Roger da Silva Mendes', '2003-03-02', 'Filho', 1),
+ (2, 1, 'Bruna da Silva' , '2011-12-31', 'Filha', 1),
+ (3, 3, 'Rafael dos Santos' , '2006-05-01', 'Filho', 1),
+ (4, null, 'Jéssica da Cruz' , '2010-04-21', 'Filha', 1);
+ 
+ INSERT INTO tb_telefone
+ (id_telefone, id_funcionario, tipo,
+ ddd, telefone, obs, fg_ativo)
+ VALUES
+ (1, 1, 'M', '016', '99886565', 'Celular Empresa',1),
+ (2, 1, 'M', '016', '78762233', 'Celular Particular', 1),
+ (3, 2, 'C', '016', '34565656', 'Residencial', 1),
+ (4, 3, 'C', '019', '56451234', 'Residencial', 1);
+ 
+-- Modificar registro da tabela
+UPDATE tb_funcionario 
+SET nome = 'João Roberto Junqueira'
+WHERE id_funcionario = 1;
+
+-- Apagar registro da tabela
+DELETE
+FROM tb_telefone
+WHERE id_telefone = 1;
+
+-- Selecionar dados da tabela
+SELECT*
+FROM tb_funcionario;
+
+SELECT*
+FROM tb_telefone
+WHERE id_funcionario = 1;
+
+SELECT func.nome, tel.telefone 
+FROM tb_funcionario as func, tb_telefone as tel
+WHERE func.id_funcionario = tel.id_funcionario;
+
+SELECT id_funcionario, nome, cpf, dt_adm
+FROM  tb_funcionario;
+
+SELECT DISTINCT (id_funcionario)
+FROM tb_dependente;
+
+-- Cláusula Where
+SELECT nome
+FROM tb_funcionario
+WHERE nome
+LIKE '%dos%';
+
+SELECT*
+FROM tb_funcionario
+WHERE id_cargo
+IN (2,3);
+
+SELECT nome, dt_nascimento, descricaoFROM tb_dependente
+WHERE dt_nascimento
+BETWEEN '2005-01-01'
+AND '2005-12-31';
+
+-- Cláusula Order By
+SELECT*
+FROM tb_dependente
+ORDER BY nome;
+
+SELECT*
+FROM tb_funcionario
+ORDER BY nome ASC, DT_ADM DESC;
+
+SELECT id_funcionario, nome, dt_adm
+FROM tb_funcionario
+ORDER BY 1;
+
+-- Cálculo
+SELECT 13*2, 75/3-1;
+
+SELECT DATE ('2012-06-25') + 2;
+
+SELECT COUNT(id_dependente)
+FROM tb_dependente;
+
+SELECT MAX(valor), MIN(valor)
+FROM tb_cargo;
