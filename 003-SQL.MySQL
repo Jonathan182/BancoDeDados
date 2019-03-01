@@ -1,5 +1,22 @@
 CREATE DATABASE ESTACIO;
 DROP DATABASE ESTACIO;
+use ESTACIO;
+
+SELECT*
+FROM tb_cargo;
+
+SELECT*
+FROM tb_funcionario;
+
+SELECT*
+FROM tb_escolaridade;
+
+SELECT*
+FROM tb_telefone;
+
+SELECT*
+FROM tb_depedente;
+
 
 CREATE TABLE tb_cargo(
 id_cargo integer,
@@ -7,8 +24,6 @@ ds_cargo varchar(40) NOT NULL,
 valor numeric(15,2) NOT NULL,
 fg_ativo integer,
 PRIMARY KEY (id_cargo));
-
-use ESTACIO;
 
 CREATE TABLE tb_escolaridade
 (id_escolaridade integer,
