@@ -1,0 +1,46 @@
+Tabela Escola:
+Identificador escola
+Nome
+CEP
+Contato
+
+Tabela Prédio:
+identificador prédio
+escola (faz referência a tabela escola)
+Descrição
+
+Tabela Bloco:
+Identificador bloco
+Prédio (faz referência a tabela prédio)
+Descrição
+
+Tabela andar:
+Identificador andar
+Bloco (faz referência a tabela bloco)
+Descrição
+
+Tabela Local:
+Identificador local
+Andar (faz referência a tabela andar)
+Descrição
+
+Tabela Categoria de Problemas:
+Identificador do problema
+Local (faz referência a tabela local)
+descrição
+
+Tabela fiscal:
+identificador fiscal
+nome do fiscal
+problema encontrado (faz referência a tabela categoria de problemas.)
+descrição do problema
+
+Tabela Endereço:
+Identificador CEP (faz referência a tabela escola)
+Numero
+
+Tabela CEP:
+Identificador CEP (faz referência a tabela endereço)
+Logradouro
+Cidade
+Estado
